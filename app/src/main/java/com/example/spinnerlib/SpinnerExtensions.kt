@@ -24,7 +24,7 @@ fun <V> Spinner.createAdapter(
       convertView: View?,
       parent: ViewGroup?
     ): View {
-      val view = super.getView(position, convertView, parent)
+      val view = super.getView(position, convertView, parent!!)
       val textview = view as TextView
       if (position == 0) {
         textview.setTextColor(Color.GRAY)
@@ -53,11 +53,6 @@ fun <V> Spinner.createAdapter(
 
   with(this) {
     adapter = aa
-  }
-
-  this.setOnTouchListener { v, event ->
-    isSpinnerTouched = true
-    false
   }
 
   this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

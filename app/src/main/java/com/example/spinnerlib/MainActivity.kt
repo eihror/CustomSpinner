@@ -1,10 +1,16 @@
 package com.example.spinnerlib
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.view.animation.Animation
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.spinner
-import android.widget.ArrayAdapter
+import android.widget.RelativeLayout
+import android.widget.RelativeLayout.LayoutParams
+import kotlinx.android.synthetic.main.activity_main.hint
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
   private fun configureView() {
 
-    var list = resources.getStringArray(R.array.month).toList()
+    val list = resources.getStringArray(R.array.month)
+        .toList()
 
     spinner.createAdapter(
         R.layout.item_spinner,
@@ -24,20 +31,25 @@ class MainActivity : AppCompatActivity() {
         list,
         {
           it.let {
-            Toast.makeText(this,"$it selected!", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "$it selected!", Toast.LENGTH_SHORT)
                 .show()
           }
         },
         { })
 
+    Handler().postDelayed({
 
+      val layoutParams: LayoutParams = hint.layoutParams as LayoutParams
+      layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL)
+      hint.layoutParams = layoutParams
 
-    var adapter = ArrayAdapter(
-        this,
-        android.R.layout.simple_dropdown_item_1line, list
-    )
+      val objectAnimator =
+        ObjectAnimator.ofFloat(hint, "translationY", 0f, -((hint.height / 2) - 5).toFloat())
 
-    spinner2.setAdapter(adapter)
+      objectAnimator.duration = 1_00
+      objectAnimator.start()
+
+    }, 2_000)
 
   }
 
