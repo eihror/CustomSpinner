@@ -16,7 +16,12 @@ fun <V> Spinner.createAdapter(
   nothingSelectedListener: () -> Unit = {}
 ) {
 
-  var isSpinnerTouched: Boolean = false
+  var isSpinnerTouched = false
+
+  setOnTouchListener { _, _ ->
+    isSpinnerTouched = true
+    false
+  }
 
   val aa = object : ArrayAdapter<V>(this.context, layout, list) {
     override fun getView(
@@ -67,10 +72,7 @@ fun <V> Spinner.createAdapter(
       id: Long
     ) {
       if (!isSpinnerTouched) return
-
-      if (position != 0) {
         selectedListener(position)
-      }
     }
   }
 

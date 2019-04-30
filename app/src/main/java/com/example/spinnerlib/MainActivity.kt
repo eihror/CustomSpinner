@@ -1,16 +1,14 @@
 package com.example.spinnerlib
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.os.Handler
-import android.view.animation.Animation
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.spinner
-import android.widget.RelativeLayout
-import android.widget.RelativeLayout.LayoutParams
 import kotlinx.android.synthetic.main.activity_main.hint
+import kotlinx.android.synthetic.main.activity_main.spinner
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,26 +29,50 @@ class MainActivity : AppCompatActivity() {
         list,
         {
           it.let {
-            Toast.makeText(this, "$it selected!", Toast.LENGTH_SHORT)
-                .show()
+            if (it == 0) {
+              animateHint(false)
+            } else {
+              animateHint(true)
+              Toast.makeText(this, "$it selected!", Toast.LENGTH_SHORT)
+                  .show()
+            }
           }
         },
         { })
 
-    Handler().postDelayed({
+  }
 
-      val layoutParams: LayoutParams = hint.layoutParams as LayoutParams
-      layoutParams.removeRule(RelativeLayout.CENTER_VERTICAL)
-      hint.layoutParams = layoutParams
+  private fun animateHint(animate: Boolean) {
 
-      val objectAnimator =
-        ObjectAnimator.ofFloat(hint, "translationY", 0f, -((hint.height / 2) - 5).toFloat())
+    var start: Float
+    var end: Float
 
-      objectAnimator.duration = 1_00
-      objectAnimator.start()
+    if (animate) {
+      start = 0F
+      end = -(spinner.height / 2).toFloat()
+    } else {
+      start = -(spinner.height / 2).toFloat()
+      end = 0F
+    }
 
-    }, 2_000)
+    val animation = ObjectAnimator.ofFloat(hint, "translationY", start, end)
+        .apply {
+          duration = 1_00
 
+          addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+              hint.background = if (animate) {
+                ContextCompat.getDrawable(applicationContext, R.drawable.bg_hint)
+              } else {
+                null
+              }
+
+            }
+          })
+
+        }
+
+    animation.start()
   }
 
 }
