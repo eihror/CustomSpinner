@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="month">
+    <item>Select a month</item>
     <item>January</item>
     <item>February</item>
     <item>March</item>

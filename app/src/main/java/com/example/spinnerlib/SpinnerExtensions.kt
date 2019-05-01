@@ -11,9 +11,9 @@ import android.widget.TextView
 fun <V> Spinner.createAdapter(
   layout: Int,
   dropDownLayout: Int,
-  list: List<V>,
-  selectedListener: (position: Int) -> Unit = {},
-  nothingSelectedListener: () -> Unit = {}
+  list: List<V>?,
+  selectedListener: ((position: Int) -> Unit)? = null,
+  nothingSelectedListener: (() -> Unit)? = null
 ) {
 
   var isSpinnerTouched = false
@@ -32,10 +32,9 @@ fun <V> Spinner.createAdapter(
       val view = super.getView(position, convertView, parent!!)
       val textview = view as TextView
       if (position == 0) {
-        textview.setTextColor(Color.GRAY)
-      } else {
-        textview.setTextColor(Color.BLACK)
+        textview.text = ""
       }
+      textview.setTextColor(Color.BLACK)
       return view
     }
 
@@ -54,7 +53,7 @@ fun <V> Spinner.createAdapter(
       return view
     }
   }
-  aa.setDropDownViewResource(dropDownLayout)
+  dropDownLayout.let { aa.setDropDownViewResource(it) }
 
   with(this) {
     adapter = aa
@@ -62,7 +61,7 @@ fun <V> Spinner.createAdapter(
 
   this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>?) {
-      nothingSelectedListener()
+      nothingSelectedListener?.let { it() }
     }
 
     override fun onItemSelected(
@@ -72,7 +71,7 @@ fun <V> Spinner.createAdapter(
       id: Long
     ) {
       if (!isSpinnerTouched) return
-        selectedListener(position)
+      selectedListener?.let { it(position) }
     }
   }
 

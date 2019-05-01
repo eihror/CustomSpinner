@@ -1,13 +1,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
 
-  <RelativeLayout
-      android:id="@+id/element"
+  <com.example.spinnerlib.AwesomeSpinner
+      android:id="@+id/spinner"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginEnd="30dp"
@@ -16,54 +15,27 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      >
+      app:as_borderRadius="8dp"
+      app:as_borderStroke="2dp"
+      app:as_errorEnabled="true"
+      app:as_hintText="@string/app_name"
+      app:as_paddingBottom="18dp"
+      app:as_paddingEnd="15dp"
+      app:as_paddingStart="15dp"
+      app:as_paddingTop="18dp"
+      />
 
-    <RelativeLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="UselessParent"
-        >
-
-      <Spinner
-          android:id="@+id/spinner"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:background="@drawable/shape_input"
-          android:overlapAnchor="false"
-          android:paddingBottom="21dp"
-          android:paddingEnd="17dp"
-          android:paddingStart="17dp"
-          android:paddingTop="21dp"
-          android:spinnerMode="dropdown"
-          />
-
-      <TextView
-          android:id="@+id/hint"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignBottom="@+id/spinner"
-          android:layout_alignTop="@+id/spinner"
-          android:layout_marginEnd="12dp"
-          android:layout_marginStart="12dp"
-          android:gravity="center"
-          android:paddingEnd="5dp"
-          android:paddingStart="5dp"
-          android:singleLine="true"
-          android:text="Hint"
-          android:textColor="@color/colorAccent"
-          />
-
-    </RelativeLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear"
-        android:text="Testando"
-        />
-
-  </RelativeLayout>
+  <Button
+      android:id="@+id/button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="30dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="20dp"
+      android:text="VALIDAR"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/spinner"
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
