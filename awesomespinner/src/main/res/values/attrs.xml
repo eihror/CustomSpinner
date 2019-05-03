@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AwesomeSpinner">
+
+        <attr format="dimension" name="as_paddingStart"/>
+        <attr format="dimension" name="as_paddingEnd"/>
+        <attr format="dimension" name="as_paddingTop"/>
+        <attr format="dimension" name="as_paddingBottom"/>
+        <attr format="dimension" name="as_borderRadius"/>
+        <attr format="dimension" name="as_borderStroke"/>
+        <attr format="reference" name="as_hintView"/>
+        <attr format="reference" name="as_dropDownView"/>
+        <attr format="reference" name="as_arrowIcon"/>
+        <attr format="color|reference" name="as_arrowColor"/>
+        <attr format="string|reference" name="as_fontFamily"/>
+        <attr format="dimension" name="as_textSize"/>
+        <attr format="string|reference" name="as_hintText"/>
+        <attr format="color|reference" name="as_defaultColor"/>
+        <attr format="color|reference" name="as_highlightColor"/>
+        <attr format="color|reference" name="as_errorColor"/>
+        <attr format="boolean" name="as_errorEnabled"/>
+        <attr format="boolean" name="as_justify"/>
+
+    </declare-styleable>
+
+</resources>
